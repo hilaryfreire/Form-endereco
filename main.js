@@ -35,17 +35,22 @@ const pesquisarCep = async() =>{
 //  Construção da URL cria a URL da API ViaCep, inserindo o valor do campo de entrada do CEP na string.
      const url = `http://viacep.com.br/ws/${cep.value}/json/`;
 
-
+ //  if Verifica se o CEP é válido utilizando a função cepValido. Se o CEP for válido, o bloco dentro do if será executado.
      if(cepValido(cep.value)){
+ // const response Realiza uma requisição para a URL especificada (que deve ser definida anteriormente) e aguarda a resposta.
          const dados  = await fetch(url);
+//  const address Converte a resposta da requisição para o formato JSON, que será armazenado na variável address.
          const addres = await dados.json();
-
+//  if Verifica se o objeto address contém uma propriedade chamada erro, indicando que o CEP não foi encontrado.
          if(addres.hasOwnProperty('erro')){
+// Alert exibe um alerta ao usuário caso o CEP não seja encontrado.
             alert('CEP Não encontrado');
          }else{
+//  Se o CEP for encontrado, chama a função preencherFormulario para preencher o formulário com os dados retornados.
             preencherFormulario(addres);
          }
      }else{
+//  Se o CEP não for válido, exibe um alerta informando que o CEP está incorreto.
          alert("CEP Incorreto!");
      }
 }
